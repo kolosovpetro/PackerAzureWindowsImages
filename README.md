@@ -9,7 +9,9 @@ Example of how to create and deploy Azure Windows VM with preinstalled chocolate
 ### Packer commands
 
 - `packer init windows-server2019-v1.pkr.hcl`
+- `packer init windows-server2022-v1.pkr.hcl`
 - `packer validate -var-file="windows.variables.json" windows-server2019-v1.pkr.hcl`
+- `packer validate -var-file="windows.variables.json" windows-server2022-v1.pkr.hcl`
 - `packer build -var-file="windows.variables.json" windows-server2019-v1.pkr.hcl`
 
 ## Pre-commit configuration

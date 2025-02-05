@@ -1,0 +1,127 @@
+parameters:
+  - name: stageName
+    displayName: 'Stage name display name'
+    type: string
+
+  - name: vmImage
+    displayName: 'Vm Image'
+    default: 'windows-latest'
+    type: string
+
+  - name: terraformVersion
+    displayName: 'Terraform Version'
+    type: string
+    default: 'latest'
+
+  - name: workingDirectory
+    displayName: 'Working Directory'
+    type: string
+
+  - name: storageAccount
+    displayName: 'Storage Account'
+    type: string
+
+  - name: storageContainer
+    displayName: 'Storage Container'
+    type: string
+
+  - name: stateFile
+    displayName: 'State File'
+    type: string
+
+  - name: sasToken
+    displayName: 'Sas Token'
+    type: string
+
+  - name: environment
+    displayName: 'Environment'
+    type: string
+
+  - name: dependsOn
+    displayName: 'Depends On'
+    type: object
+
+  - name: condition
+    displayName: 'Condition'
+    type: string
+
+  - name: subscriptionId
+    displayName: 'Azure Subscription Id'
+    type: string
+
+  - name: clientId
+    displayName: 'Azure Client Id'
+    type: string
+
+  - name: clientSecret
+    displayName: 'Azure Client Secret'
+    type: string
+
+  - name: tenantId
+    displayName: 'Azure Tenant Id'
+    type: string
+
+stages:
+  - stage: ${{ parameters.stageName }}
+    displayName: ${{ parameters.stageName }}
+    dependsOn: ${{ parameters.dependsOn }}
+    condition: succeeded('${{ parameters.condition }}')
+    jobs:
+      - deployment: ${{ parameters.stageName }}
+        displayName: ${{ parameters.stageName }}
+        pool:
+          vmImage: ${{ parameters.VmImage }}
+        environment: ${{ parameters.environment }}
+        variables:
+          - name: 'TF_LOG'
+            value: 'INFO'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                  fetchDepth: 0
+
+                - download: current
+                  artifact: drop
+
+                - task: TerraformInstaller@1
+                  displayName: 'Install Terraform ${{ parameters.terraformVersion }}'
+                  inputs:
+                    terraformVersion: '${{ parameters.terraformVersion }}'
+
+                - powershell: |
+                    echo "Logging in to Azure..."
+                    az login --service-principal -u ${{ parameters.clientId }} -p ${{ parameters.clientSecret }} --tenant ${{ parameters.tenantId }}
+                    echo "Run an Azure CLI command to verify"
+                    az aks list --output table
+                  displayName: 'Azure CLI Login and List AKS Clusters'
+
+                - powershell: |
+                    terraform init `
+                      -backend-config="storage_account_name=$env:TF_STATE_BLOB_ACCOUNT_NAME" `
+                      -backend-config="container_name=$env:TF_STATE_BLOB_CONTAINER_NAME" `
+                      -backend-config="key=$env:TF_STATE_BLOB_FILE" `
+                      -backend-config="sas_token=$env:TF_STATE_BLOB_SAS_TOKEN"
+                  displayName: 'Terraform Init'
+                  workingDirectory: ${{ parameters.workingDirectory }}
+                  env:
+                    TF_STATE_BLOB_ACCOUNT_NAME: ${{ parameters.storageAccount }}
+                    TF_STATE_BLOB_CONTAINER_NAME: ${{ parameters.storageContainer }}
+                    TF_STATE_BLOB_FILE: ${{ parameters.stateFile }}
+                    TF_STATE_BLOB_SAS_TOKEN: ${{ parameters.sasToken }}
+
+                - powershell: |
+                    cp $(Agent.BuildDirectory)/drop/main.tfplan main.tfplan
+                  displayName: 'Copy Plan'
+                  workingDirectory: ${{ parameters.workingDirectory }}
+
+                - powershell: |
+                    terraform apply -auto-approve main.tfplan
+                  displayName: 'Terraform Apply'
+                  workingDirectory: ${{ parameters.workingDirectory }}
+                  env:
+                    ARM_SUBSCRIPTION_ID: ${{ parameters.subscriptionId }}
+                    ARM_CLIENT_ID: ${{ parameters.clientId }}
+                    ARM_CLIENT_SECRET: ${{ parameters.clientSecret }}
+                    ARM_TENANT_ID: ${{ parameters.tenantId }}

@@ -77,3 +77,8 @@ variable "image_resource_group_name" {
   type        = string
   description = "Specifies the name of the resource group that contains the image to use to create the virtual machine."
 }
+
+variable "subscription_id" {
+  type = string
+  description = "Azure Subscription ID"
+}
