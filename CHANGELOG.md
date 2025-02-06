@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - Windows 2022 base image
 - Add verify encoding script
 - Rename folders
+- Move Windows Server 2022 image to separate folder
 
 ## v1.0.0 - In Progress
 

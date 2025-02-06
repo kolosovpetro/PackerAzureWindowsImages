@@ -79,6 +79,6 @@ variable "image_resource_group_name" {
 }
 
 variable "subscription_id" {
-  type = string
+  type        = string
   description = "Azure Subscription ID"
 }
