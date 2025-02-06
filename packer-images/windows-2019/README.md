@@ -23,7 +23,9 @@ This repository contains a Packer template to build a custom Windows Server 2022
 - packer init .
 - packer validate "./templates/windows-server2019-v1.pkr.hcl"
 
-## Notes
+### Test Image
 
-- Ensure Azure credentials are set as environment variables or securely stored.
-- Modify variables.pkr.hcl to customize the build.
+- From the root folder `windows-2019`
+- terraform init
+- terraform plan
+- terraform apply
