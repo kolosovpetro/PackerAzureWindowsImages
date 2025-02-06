@@ -1,21 +1,21 @@
 variable "azure-client-id" {
   type = string
-  default = env("OSDS_MPN_SUB_CLIENT_ID")
+  default = env("PACKER_MPN_SUB_CLIENT_ID")
 }
 
 variable "azure-client-secret" {
   type = string
-  default = env("OSDS_MPN_SUB_CLIENT_SECRET")
+  default = env("PACKER_MPN_SUB_CLIENT_SECRET")
 }
 
 variable "azure-subscription-id" {
   type = string
-  default = env("OSDS_MPN_SUB_ID")
+  default = env("PACKER_MPN_SUB_ID")
 }
 
 variable "azure-tenant-id" {
   type = string
-  default = env("OSDS_MPN_SUB_TENANT_ID")
+  default = env("PACKER_MPN_SUB_TENANT_ID")
 }
 
 variable "azure-region" {

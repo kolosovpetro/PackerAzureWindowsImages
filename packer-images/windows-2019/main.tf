@@ -205,3 +205,31 @@ resource "azurerm_network_security_rule" "allow_sql_server" {
   resource_group_name         = azurerm_resource_group.public.name
   network_security_group_name = azurerm_network_security_group.public.name
 }
+
+resource "azurerm_network_security_rule" "allow_winrm_https" {
+  name                        = "AllowWinRMHttps"
+  priority                    = 1050
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "5986"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.public.name
+  network_security_group_name = azurerm_network_security_group.public.name
+}
+
+resource "azurerm_network_security_rule" "allow_winrm_http" {
+  name                        = "AllowWinRMHttp"
+  priority                    = 1060
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "5985"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.public.name
+  network_security_group_name = azurerm_network_security_group.public.name
+}

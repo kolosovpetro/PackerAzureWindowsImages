@@ -1,7 +1,7 @@
 variable "storage_image_reference_sku" {
   type        = string
   description = "Specifies the SKU of the platform image or marketplace image used to create the virtual machine."
-  default     = "windows-server2019-v2"
+  default     = "windows-server2019-v3"
 }
 
 variable "image_resource_group_name" {
