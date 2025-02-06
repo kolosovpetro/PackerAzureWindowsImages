@@ -1,4 +1,4 @@
-﻿# Configures WinRM for Ansible Windows
+# Configures WinRM for Ansible Windows
 
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force;
 $scriptUrl="https://raw.githubusercontent.com/AlbanAndrieu/ansible-windows/master/files/ConfigureRemotingForAnsible.ps1";

@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Stop"
 
 Write-Host "Removing Packer plugins directory..."
 Remove-Item -Path "$env:APPDATA\packer.d" -Recurse -Force

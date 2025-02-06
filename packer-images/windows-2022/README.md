@@ -1,4 +1,4 @@
-﻿# Packer Azure Image Builder
+# Packer Azure Image Builder
 
 This repository contains a Packer template to build a custom Windows Server 2022 image on Microsoft Azure.
 

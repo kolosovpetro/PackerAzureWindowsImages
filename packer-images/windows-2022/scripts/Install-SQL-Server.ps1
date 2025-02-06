@@ -1,1 +1,1 @@
-﻿choco install sql-server-2019 -y
+choco install sql-server-2019 -y
