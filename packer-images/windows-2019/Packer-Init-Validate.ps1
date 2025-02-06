@@ -27,4 +27,9 @@ packer validate "./templates/windows-server2019-v1.pkr.hcl"
 
 Write-Host "========================================================================================================================================"
 
+Write-Host "Validating Packer template: windows-server2019-v2.pkr.hcl..."
+packer validate "./templates/windows-server2019-v2.pkr.hcl"
+
+Write-Host "========================================================================================================================================"
+
 Write-Host "Script execution completed."

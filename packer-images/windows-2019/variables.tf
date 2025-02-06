@@ -34,24 +34,6 @@ variable "vm_size" {
   default     = "Standard_D4s_v3"
 }
 
-variable "storage_image_reference_publisher" {
-  type        = string
-  description = "The publisher of the image used to create the virtual machine."
-  default     = "MicrosoftWindowsServer"
-}
-
-variable "storage_image_reference_offer" {
-  type        = string
-  description = "Specifies the offer of the platform image or marketplace image used to create the virtual machine."
-  default     = "WindowsServer"
-}
-
-variable "storage_image_reference_version" {
-  type        = string
-  description = "Specifies the version of the platform image or marketplace image used to create the virtual machine."
-  default     = "latest"
-}
-
 variable "storage_os_disk_caching" {
   type        = string
   description = "Specifies the caching requirements for the OS disk."
@@ -74,24 +56,6 @@ variable "os_profile_admin_username" {
   type        = string
   description = "Specifies the name of the administrator account."
   default     = "razumovsky_r"
-}
-
-variable "storage_account_replication" {
-  type        = string
-  description = "Specifies the replication type for this storage account."
-  default     = "LRS"
-}
-
-variable "storage_account_tier" {
-  type        = string
-  description = "Specifies the tier to use for this storage account."
-  default     = "Standard"
-}
-
-variable "custom_script_extension_enabled" {
-  type        = bool
-  description = "Specifies whether the extension should be enabled or disabled."
-  default     = false
 }
 
 variable "subscription_id" {
