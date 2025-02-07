@@ -17,15 +17,13 @@ This repository contains a Packer template to build a custom Windows Server 2022
 
 ### Build image (Run from the folder where `versions.hcl` file located)
 
-- Remove-Item -Path "$env:APPDATA\packer.d" -Recurse -Force
-- $env:PACKER_LOG = "1"
-- az group create --name "rg-packer-images-win" --location "northeurope"
-- packer init .
-- packer validate "./templates/windows-server2019-v1.pkr.hcl"
+- Setup required environment variables
+- `.\Packer-Init-Validate.ps1`
+- `packer build .\tempates\windows-server2019-v4.pkr.hcl`
 
 ### Test Image
 
 - From the root folder `windows-2019`
-- terraform init
-- terraform plan
-- terraform apply
+- `terraform init`
+- `terraform plan`
+- `terraform apply`

@@ -9,12 +9,28 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 
 ### Changed
 
-- Windows 2022 base image
-- Add verify encoding script
-- Rename folders
-- Move Windows Server 2022 image to separate folder
-- Update packer images folder structure
-- Add packer init script
+- Windows 2022 base image for `windows-server2022-v4.pkr.hcl`
+- Windows 2019 base image for `windows-server2019-v4.pkr.hcl`
+- Verifies image Windows Server images integrity using `scf scan` and `DISM`
+- Configures WinRM for Ansible as part of images
+- Images are tested using Terraform
+- Add encoding fix PowerShell script (removes BOM and fixes EOL)
+- Arrange images folder structure for better code maintainability
+- Each image contains `README` file with complete guide how to build it
+- Add PowerShell script for Packer init and validate images
+
+**Installed software v4**
+
+- azure-cli
+- microsoft-edge
+- git
+- netfx-4.8-devpack
+- dotnet-6.0-sdk
+- powershell-core
+- winrar
+- notepadplusplus
+- sql-server-management-studio
+- azcopy10
 
 ## v1.0.0 - In Progress
 
