@@ -8,7 +8,7 @@ resource "azurerm_storage_account" "public" {
 
 resource "azurerm_storage_container" "public" {
   name                  = var.storage_container_name
-  storage_account_name  = azurerm_storage_account.public.name
+  storage_account_id    = azurerm_storage_account.public.id
   container_access_type = "blob"
 
   depends_on = [azurerm_storage_account.public]

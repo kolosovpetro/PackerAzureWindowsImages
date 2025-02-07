@@ -1,0 +1,145 @@
+parameters:
+  - name: stageName
+    displayName: 'Stage name display name'
+    type: string
+
+  - name: vmImage
+    displayName: 'Vm Image'
+    default: 'windows-latest'
+    type: string
+
+  - name: terraformVersion
+    displayName: 'Terraform Version'
+    type: string
+    default: 'latest'
+
+  - name: workingDirectory
+    displayName: 'Working Directory for Terraform'
+    type: string
+
+  - name: storageAccount
+    displayName: 'Storage Account'
+    type: string
+
+  - name: storageContainer
+    displayName: 'Storage Container'
+    type: string
+
+  - name: stateFile
+    displayName: 'State File'
+    type: string
+
+  - name: sasToken
+    displayName: 'Sas Token'
+    type: string
+
+  - name: prefix
+    displayName: 'Prefix'
+    default: 'd01'
+    type: string
+
+  - name: subscriptionId
+    displayName: 'Azure Subscription Id'
+    type: string
+
+  - name: clientId
+    displayName: 'Azure Client Id'
+    type: string
+
+  - name: clientSecret
+    displayName: 'Azure Client Secret'
+    type: string
+
+  - name: tenantId
+    displayName: 'Azure Tenant Id'
+    type: string
+    
+  - name: destroy
+    type: boolean
+
+stages:
+  - stage: ${{ parameters.stageName }}
+    displayName: ${{ parameters.stageName }}
+    jobs:
+      - job: ${{ parameters.stageName }}
+        displayName: ${{ parameters.stageName }}
+        pool:
+          vmImage: ${{ parameters.VmImage }}
+        variables:
+          - name: 'TF_LOG'
+            value: 'INFO'
+        steps:
+          - checkout: self
+            fetchDepth: 0
+            
+          - powershell: |
+              ./scripts/verify-encoding.ps1 -Autofix
+            displayName: 'Verify encoding'
+            workingDirectory: ${{ parameters.workingDirectory }}
+
+          - task: TerraformInstaller@1
+            displayName: 'Install Terraform ${{ parameters.terraformVersion }}'
+            inputs:
+              terraformVersion: '${{ parameters.terraformVersion }}'
+
+          - task: FileTransform@2
+            displayName: 'Transform terraform.auto.tfvars.json'
+            inputs:
+              folderPath: '$(System.DefaultWorkingDirectory)'
+              xmlTransformationRules: ''
+              jsonTargetFiles: 'terraform.auto.tfvars.json'
+
+          - powershell: |
+              terraform init -backend=false
+              terraform validate
+              terraform fmt -check
+            displayName: "Run tf validate"
+            workingDirectory: '${{ parameters.workingDirectory }}'
+
+          - powershell: |
+              terraform init `
+                -backend-config="storage_account_name=$env:TF_STATE_BLOB_ACCOUNT_NAME" `
+                -backend-config="container_name=$env:TF_STATE_BLOB_CONTAINER_NAME" `
+                -backend-config="key=$env:TF_STATE_BLOB_FILE" `
+                -backend-config="sas_token=$env:TF_STATE_BLOB_SAS_TOKEN"
+            displayName: 'Terraform Init'
+            workingDirectory: ${{ parameters.workingDirectory }}
+            env:
+              TF_STATE_BLOB_ACCOUNT_NAME: ${{ parameters.storageAccount }}
+              TF_STATE_BLOB_CONTAINER_NAME: ${{ parameters.storageContainer }}
+              TF_STATE_BLOB_FILE: ${{ parameters.stateFile }}
+              TF_STATE_BLOB_SAS_TOKEN: ${{ parameters.sasToken }}
+              
+          - ${{ if eq(parameters.destroy, false) }}:
+            - powershell: |
+                terraform plan -var "prefix=${{ parameters.prefix }}" -out main.tfplan
+              displayName: 'Terraform Plan'
+              workingDirectory: ${{ parameters.workingDirectory }}
+              env:
+                ARM_SUBSCRIPTION_ID: ${{ parameters.subscriptionId }}
+                ARM_CLIENT_ID: ${{ parameters.clientId }}
+                ARM_CLIENT_SECRET: ${{ parameters.clientSecret }}
+                ARM_TENANT_ID: ${{ parameters.tenantId }}
+                
+          - ${{ if eq(parameters.destroy, true) }}:
+              - powershell: |
+                  terraform plan -destroy -var "prefix=${{ parameters.prefix }}" -out main.tfplan
+                displayName: 'Terraform Plan Destroy'
+                workingDirectory: ${{ parameters.workingDirectory }}
+                env:
+                  ARM_SUBSCRIPTION_ID: ${{ parameters.subscriptionId }}
+                  ARM_CLIENT_ID: ${{ parameters.clientId }}
+                  ARM_CLIENT_SECRET: ${{ parameters.clientSecret }}
+                  ARM_TENANT_ID: ${{ parameters.tenantId }}
+
+          - powershell: |
+              cp main.tfplan $(Build.ArtifactStagingDirectory)
+            displayName: 'Copy Plan'
+            workingDirectory: ${{ parameters.workingDirectory }}
+
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish Artifacts'
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'

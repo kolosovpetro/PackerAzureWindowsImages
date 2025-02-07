@@ -1,0 +1,63 @@
+#pr:
+#  paths:
+#    include:
+#      - terraform
+#      - build/terraform-plan-apply.yml
+#    exclude:
+#      - terraform/README.md
+
+#trigger:
+#  batch: true
+#  branches:
+#    include:
+#      - docs
+
+trigger: none
+pr: none
+
+variables:
+  - group: Azure_Terraform_Integration
+  - group: Terraform_Auto_Tfvars_Json_Transform
+  - group: Prefix_Library
+  - name: System.Debug
+    value: 'false'
+  - name: planStageName
+    value: "Terraform_Plan"
+  - name: applyStageName
+    value: "Terraform_Apply"
+
+stages:
+  - template: templates/terraform-plan-stages.yml
+    parameters:
+      stageName: ${{ variables.planStageName }}
+      VmImage: windows-latest
+      terraformVersion: latest
+      workingDirectory: $(System.DefaultWorkingDirectory)
+      storageAccount: $(library-storage-account)
+      storageContainer: $(library-storage-container)
+      stateFile: $(library-state-file)
+      sasToken: $(library-sas-token)
+      prefix: $(library-prefix)
+      subscriptionId: $(library-subscription-id)
+      clientId: $(library-client-id)
+      clientSecret: $(library-client-secret)
+      tenantId: $(library-tenant-id)
+      destroy: false
+
+  - template: templates/terraform-apply-stages.yml
+    parameters:
+      stageName: ${{ variables.applyStageName }}
+      VmImage: windows-latest
+      terraformVersion: latest
+      workingDirectory: $(System.DefaultWorkingDirectory)
+      storageAccount: $(library-storage-account)
+      storageContainer: $(library-storage-container)
+      stateFile: $(library-state-file)
+      sasToken: $(library-sas-token)
+      subscriptionId: $(library-subscription-id)
+      clientId: $(library-client-id)
+      clientSecret: $(library-client-secret)
+      tenantId: $(library-tenant-id)
+      environment: 'terraform'
+      dependsOn: [ '${{ variables.planStageName }}' ]
+      condition: ${{ variables.planStageName }}

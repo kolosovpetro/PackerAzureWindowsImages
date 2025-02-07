@@ -1,0 +1,2 @@
+Start-Process -FilePath "regedit.exe" -ArgumentList "/s .\App-Pwsh-Context-Menu.reg" -Wait -NoNewWindow
+Start-Process -FilePath "regedit.exe" -ArgumentList "/s .\Add-Cmd-Context-Menu.reg" -Wait -NoNewWindow
