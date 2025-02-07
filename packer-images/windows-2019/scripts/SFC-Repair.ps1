@@ -1,1 +1,1 @@
-﻿sfc /scannow
+sfc /scannow

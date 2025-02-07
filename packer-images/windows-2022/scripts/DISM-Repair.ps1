@@ -1,4 +1,4 @@
-﻿$logFile = "C:\DISM_Check.log"
+$logFile = "C:\DISM_Check.log"
 
 function Write-Log
 {
