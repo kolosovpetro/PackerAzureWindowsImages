@@ -1,0 +1,2 @@
+﻿Start-Process -FilePath "regedit.exe" -ArgumentList "/s .\Add_64-bit_PowerShell_7_Open_here_context_menu_on_64-bit_Windows_10.reg" -Wait -NoNewWindow
+Start-Process -FilePath "regedit.exe" -ArgumentList "/s .\Add_Command_Prompt_Open_here_context_menu.reg" -Wait -NoNewWindow

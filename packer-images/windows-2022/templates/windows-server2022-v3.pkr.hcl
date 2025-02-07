@@ -108,6 +108,18 @@ build {
   }
 
   provisioner "powershell" {
+    script = "scripts/Configure-WinRM.ps1"
+  }
+
+  provisioner "powershell" {
+    script = "scripts/Execute-Regedit.ps1"
+  }
+
+  provisioner "windows-restart" {
+    restart_timeout = "15m"
+  }
+
+  provisioner "powershell" {
     script = "scripts/Execute-Sysprep.ps1"
   }
 }
