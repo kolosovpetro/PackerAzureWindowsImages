@@ -1,8 +1,13 @@
 $ErrorActionPreference = "Stop"
 
+function PrintLongDash()
+{
+    Write-Host "========================================================================================================================================"
+}
+
 Set-Location $PSScriptRoot
 
-Write-Host "========================================================================================================================================"
+PrintLongDash
 
 $packerCacheExists = $( Test-Path "$env:APPDATA\packer.d" )
 
@@ -14,22 +19,22 @@ if ($packerCacheExists -eq $True)
     Remove-Item -Path "$env:APPDATA\packer.d" -Recurse -Force
 }
 
-Write-Host "========================================================================================================================================"
+PrintLongDash
 
 Write-Host "Enabling Packer logging..."
 $env:PACKER_LOG = "1"
 
-Write-Host "========================================================================================================================================"
+PrintLongDash
 
 Write-Host "Creating Azure resource group 'rg-packer-images-win' in 'northeurope'..."
 az group create --name "rg-packer-images-win" --location "northeurope"
 
-Write-Host "========================================================================================================================================"
+PrintLongDash
 
 Write-Host "Initializing Packer..."
 packer init .
 
-Write-Host "========================================================================================================================================"
+PrintLongDash
 
 # Get all files in the folder and select the absolute path
 $files = Get-ChildItem -Path ".\templates" -File | Select-Object -ExpandProperty FullName
@@ -37,11 +42,11 @@ $files = Get-ChildItem -Path ".\templates" -File | Select-Object -ExpandProperty
 # Iterate over the array of absolute paths
 foreach ($file in $files)
 {
-    Write-Host "========================================================================================================================================"
+    PrintLongDash
     Write-Host "Validating template file: $file"
     packer validate "$file"
 }
 
-Write-Host "========================================================================================================================================"
+PrintLongDash
 
 Write-Host "Script execution completed."
