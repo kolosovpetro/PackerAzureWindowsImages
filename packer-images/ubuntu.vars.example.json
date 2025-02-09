@@ -1,0 +1,10 @@
+{
+  "azure-subscription-id": "",
+  "azure-client-id": "",
+  "azure-client-secret": "",
+  "azure-tenant-id": "",
+  "azure-resource-group": "rg-packer-images-win",
+  "azure-region": "northeurope",
+  "vm-size": "Standard_D4s_v3",
+  "image-name": "windows-server2019-v1"
+}
