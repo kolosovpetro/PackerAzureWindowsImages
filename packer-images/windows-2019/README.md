@@ -19,7 +19,9 @@ This repository contains a Packer template to build a custom Windows Server 2022
 
 - Setup required environment variables
 - `.\Packer-Init-Validate.ps1`
-- `packer build .\tempates\windows-server2019-v4.pkr.hcl`
+- `packer build .\tempates\windows-server2019-v5.pkr.hcl`
+- `packer build .\tempates\windows-server2019-v5-sub-2.pkr.hcl`
+- `packer build "E:\RiderProjects\03_TERRAFORM_PROJECTS\PackerAzureWindowsImages\packer-images\windows-2019\templates\windows-server2019-v5-sub-2.pkr.hcl"`
 
 ### Test Image
 
