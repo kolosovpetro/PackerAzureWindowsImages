@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - Arrange images folder structure for better code maintainability
 - Each image contains `README` file with complete guide how to build it
 - Add PowerShell script for Packer init and validate images
+- Merge images directories
 
 **Installed software v4**
 

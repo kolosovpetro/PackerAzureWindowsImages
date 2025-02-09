@@ -1,13 +1,18 @@
 $ErrorActionPreference = "Stop"
 
+Set-Location $PSScriptRoot
+
 Write-Host "========================================================================================================================================"
 
-Write-Host "Removing Packer plugins directory..."
-Remove-Item -Path "$env:APPDATA\packer.d" -Recurse -Force
+$packerCacheExists = $( Test-Path "$env:APPDATA\packer.d" )
 
-Write-Host "Sleep 5 seconds"
+Write-Host "Attempting to delete cached packer plugins"
 
-Start-Sleep 5
+if ($packerCacheExists -eq $True)
+{
+    Write-Host "Removing Packer plugins directory..."
+    Remove-Item -Path "$env:APPDATA\packer.d" -Recurse -Force
+}
 
 Write-Host "========================================================================================================================================"
 
@@ -26,13 +31,16 @@ packer init .
 
 Write-Host "========================================================================================================================================"
 
-Write-Host "Validating Packer template: windows-server2022-v1.pkr.hcl..."
-packer validate "./templates/windows-server2022-v1.pkr.hcl"
+# Get all files in the folder and select the absolute path
+$files = Get-ChildItem -Path ".\templates" -File | Select-Object -ExpandProperty FullName
 
-Write-Host "========================================================================================================================================"
-
-Write-Host "Validating Packer template: windows-server2022-v2.pkr.hcl..."
-packer validate "./templates/windows-server2022-v2.pkr.hcl"
+# Iterate over the array of absolute paths
+foreach ($file in $files)
+{
+    Write-Host "========================================================================================================================================"
+    Write-Host "Validating template file: $file"
+    packer validate "$file"
+}
 
 Write-Host "========================================================================================================================================"
 
