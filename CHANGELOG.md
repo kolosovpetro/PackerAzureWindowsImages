@@ -19,10 +19,13 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - Each image contains `README` file with complete guide how to build it
 - Add PowerShell script for Packer init and validate images
 - Merge images directories
+- Merge all images to a single folder, parametrize base image
+- Update Packer init script, run validate over all files in folder templates
+- Create a powershell script that builds packer images using var files and templates, use absolute paths there
+- Update readme with all commands to build images
 
-**Installed software v4**
+**Installed software v1**
 
-- azure-cli
 - microsoft-edge
 - git
 - netfx-4.8-devpack
@@ -30,7 +33,6 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - powershell-core
 - winrar
 - notepadplusplus
-- sql-server-management-studio
 - azcopy10
 
 ## v1.0.0 - In Progress
