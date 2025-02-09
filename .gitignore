@@ -6,3 +6,6 @@
 *.tfstate
 *.lock.info
 *.tfstate.backup
+# Ignore var files for packer
+packer.windows2019.* 
+packer.windows2022.* 
