@@ -26,8 +26,8 @@ $env:PACKER_LOG = "1"
 
 PrintLongDash
 
-Write-Host "Creating Azure resource group 'rg-packer-images-win' in 'northeurope'..."
-az group create --name "rg-packer-images-win" --location "northeurope"
+Write-Host "Creating Azure resource group 'rg-packer-images-linux' in 'northeurope'..."
+az group create --name "rg-packer-images-linux" --location "northeurope"
 
 PrintLongDash
 

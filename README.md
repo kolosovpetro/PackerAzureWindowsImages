@@ -9,25 +9,31 @@ configures WinRM for Ansible, and validates images with Terraform.
 - https://github.com/hashicorp/packer-plugin-azure
 - https://github.com/rgl/packer-plugin-windows-update
 
-## Installed software v4
+## Installed software v1
 
-- azure-cli
-- microsoft-edge
-- git
-- netfx-4.8-devpack
-- dotnet-6.0-sdk
-- powershell-core
-- winrar
-- notepadplusplus
-- sql-server-management-studio
-- azcopy10
+- `choco feature enable -n allowGlobalConfirmation`
+- `IIS`
+- `Chocolatey`
+- `choco install microsoft-edge -y`
+- `choco install git.install -y`
+- `choco install netfx-4.8-devpack -y`
+- `choco install dotnet-6.0-sdk -y`
+- `choco install powershell-core -y`
+- `choco install winrar -y`
+- `choco install notepadplusplus -y`
+- `choco install azcopy10 -y`
 
-## Terraform modules in this repository
+## Installed software v2
 
-- custom-script-extension
-- vm
-- storage
-- network
-- keyvault-secrets
-- keyvault-access-policy
-- keyvault
+- `choco feature enable -n allowGlobalConfirmation`
+- `IIS`
+- `Chocolatey`
+- `choco install microsoft-edge -y`
+- `choco install git.install -y`
+- `choco install netfx-4.8-devpack -y`
+- `choco install dotnet-6.0-sdk -y`
+- `choco install powershell-core -y`
+- `choco install winrar -y`
+- `choco install notepadplusplus -y`
+- `choco install azcopy10 -y`
+- `Prometheus node exporter`

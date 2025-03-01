@@ -1,7 +1,7 @@
 variable "storage_image_reference_sku" {
   type        = string
   description = "Specifies the SKU of the platform image or marketplace image used to create the virtual machine."
-  default     = "windows-server2019-v4"
+  default     = "windows-server2022-v2"
 }
 
 variable "image_resource_group_name" {
@@ -61,5 +61,5 @@ variable "os_profile_admin_username" {
 variable "subscription_id" {
   type        = string
   description = "Azure Subscription ID"
-  default     = "f32f6566-8fa0-4198-9c91-a3b8ac69e89a"
+  default     = "1b08b9a2-ac6d-4b86-8a2f-8fef552c8371"
 }
