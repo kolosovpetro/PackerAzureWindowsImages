@@ -24,28 +24,31 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - Create a powershell script that builds packer images using var files and templates, use absolute paths there
 - Update readme with all commands to build images
 
-**Installed software v1**
+## Installed software v1
 
-- microsoft-edge
-- git
-- netfx-4.8-devpack
-- dotnet-6.0-sdk
-- powershell-core
-- winrar
-- notepadplusplus
-- azcopy10
+- `choco feature enable -n allowGlobalConfirmation`
+- `IIS`
+- `Chocolatey`
+- `choco install microsoft-edge -y`
+- `choco install git.install -y`
+- `choco install netfx-4.8-devpack -y`
+- `choco install dotnet-6.0-sdk -y`
+- `choco install powershell-core -y`
+- `choco install winrar -y`
+- `choco install notepadplusplus -y`
+- `choco install azcopy10 -y`
 
-## v1.0.0 - In Progress
+## Installed software v2
 
-### Changed
-
-- azure-cli
-- microsoft-edge
-- git
-- netfx-4.8-devpack
-- dotnet-6.0-sdk
-- openssl
-- powershell-core
-- winrar
-- notepadplusplus
-- nvm
+- `choco feature enable -n allowGlobalConfirmation`
+- `IIS`
+- `Chocolatey`
+- `choco install microsoft-edge -y`
+- `choco install git.install -y`
+- `choco install netfx-4.8-devpack -y`
+- `choco install dotnet-6.0-sdk -y`
+- `choco install powershell-core -y`
+- `choco install winrar -y`
+- `choco install notepadplusplus -y`
+- `choco install azcopy10 -y`
+- `Prometheus node exporter`
