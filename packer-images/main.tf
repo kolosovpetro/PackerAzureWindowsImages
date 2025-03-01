@@ -24,7 +24,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "public" {
   location = var.resource_group_location
-  name     = "rg-packer-test2019-${var.prefix}"
+  name     = "rg-packer-win-test-${var.prefix}"
 }
 
 #################################################################################################################
@@ -228,6 +228,20 @@ resource "azurerm_network_security_rule" "allow_winrm_http" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = "5985"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.public.name
+  network_security_group_name = azurerm_network_security_group.public.name
+}
+
+resource "azurerm_network_security_rule" "allow_prometheus_windows_exporter" {
+  name                        = "AllowPrometheusWinExporter"
+  priority                    = 1070
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "9182"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.public.name
