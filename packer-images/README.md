@@ -25,6 +25,8 @@ This repository contains a Packer template to build a custom Windows Server 2022
 - .\Packer-Build.ps1 -PackerImage ".\templates\windows-server-image-v1.pkr.hcl" -VarFile ".\packer.windows2022.osds.vars.json"
 - .\Packer-Build.ps1 -PackerImage ".\templates\windows-server-image-v2.pkr.hcl" -VarFile ".\packer.windows2022.pkolosov.vars.json"
 - .\Packer-Build.ps1 -PackerImage ".\templates\windows-server-image-v2.pkr.hcl" -VarFile ".\packer.windows2022.osds.vars.json"
+- .\Packer-Build.ps1 -PackerImage ".\templates\windows-server-image-v3.pkr.hcl" -VarFile ".\packer.windows2022.pkolosov.vars.json"
+- .\Packer-Build.ps1 -PackerImage ".\templates\windows-server-image-v3.pkr.hcl" -VarFile ".\packer.windows2022.osds.vars.json"
 
 ### Test Image
 

@@ -40,9 +40,9 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 
 ## Installed software v2
 
-- `choco feature enable -n allowGlobalConfirmation`
 - `IIS`
 - `Chocolatey`
+- `Prometheus node exporter`
 - `choco install microsoft-edge -y`
 - `choco install git.install -y`
 - `choco install netfx-4.8-devpack -y`
@@ -51,4 +51,18 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - `choco install winrar -y`
 - `choco install notepadplusplus -y`
 - `choco install azcopy10 -y`
-- `Prometheus node exporter`
+
+## Installed software v3
+
+- `IIS`
+- `Chocolatey`
+  `Prometheus node exporter`
+- `choco install microsoft-edge -y`
+- `choco install git.install -y`
+- `choco install netfx-4.8-devpack -y`
+- `choco install dotnet-6.0-sdk -y`
+- `choco install powershell-core -y`
+- `choco install winrar -y`
+- `choco install notepadplusplus -y`
+- `choco install azcopy10 -y`
+- `choco install heavyload -y`
