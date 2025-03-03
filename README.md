@@ -11,7 +11,6 @@ configures WinRM for Ansible, and validates images with Terraform.
 
 ## Installed software v1
 
-- `choco feature enable -n allowGlobalConfirmation`
 - `IIS`
 - `Chocolatey`
 - `choco install microsoft-edge -y`
@@ -25,9 +24,9 @@ configures WinRM for Ansible, and validates images with Terraform.
 
 ## Installed software v2
 
-- `choco feature enable -n allowGlobalConfirmation`
 - `IIS`
 - `Chocolatey`
+- `Prometheus node exporter`
 - `choco install microsoft-edge -y`
 - `choco install git.install -y`
 - `choco install netfx-4.8-devpack -y`
@@ -36,4 +35,18 @@ configures WinRM for Ansible, and validates images with Terraform.
 - `choco install winrar -y`
 - `choco install notepadplusplus -y`
 - `choco install azcopy10 -y`
-- `Prometheus node exporter`
+
+## Installed software v3
+
+- `IIS`
+- `Chocolatey`
+  `Prometheus node exporter`
+- `choco install microsoft-edge -y`
+- `choco install git.install -y`
+- `choco install netfx-4.8-devpack -y`
+- `choco install dotnet-6.0-sdk -y`
+- `choco install powershell-core -y`
+- `choco install winrar -y`
+- `choco install notepadplusplus -y`
+- `choco install azcopy10 -y`
+- `choco install heavyload -y`
